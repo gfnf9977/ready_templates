@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор Кількості Номіналів</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="light-mode">
+<div class="theme-toggle">
+    <button id="themeToggleButton" aria-label="Toggle theme">
+        <span class="icon sun">&#9728;</span>
+        <span class="icon moon">&#9789;</span>
+    </button>
+</div>
+<div class="calculator-container">
+    <div class="calculator">
+        <h1>Калькулятор</h1>
+
+        <div class="section">
+            <div class="column">
+                <h2>Монети</h2>
+                <div class="input-group">
+                    <label for="denomination-10kop">10 коп:</label>
+                    <input type="number" id="denomination-10kop" value="0" min="0" onfocus="clearInput(this)" onblur="resetIfEmpty(this)" oninput="limitDecimalPlaces(this); calculateTotal()">
+                </div>
+                <div class="input-group">
+                    <label for="denomination-50kop">50 коп:</label>
+                    <input type="number" id="denomination-50kop" value="0" min="0" onfocus="clearInput(this)" onblur="resetIfEmpty(this)" oninput="limitDecimalPlaces(this); calculateTotal()">
+                </div>
+            </div>
+
+            <div class="column">
+                <h2>Монети/Купюри</h2>
+                <div class="input-group">
+                    <label for="denomination-1">1 грн:</label>
+                    <input type="number" id="denomination-1" value="0" min="0" onfocus="clearInput(this)" onblur="resetIfEmpty(this)" oninput="limitDecimalPlaces(this); calculateTotal()">
+                </div>
+                <div class="input-group">
+                    <label for="denomination-2">2 грн:</label>
+                    <input type="number" id="denomination-2" value="0" min="0" onfocus="clearInput(this)" onblur="resetIfEmpty(this)" oninput="limitDecimalPlaces(this); calculateTotal()">
+                </div>
+                <div class="input-group">
+                    <label for="denomination-5">5 грн:</label>
+                    <input type="number" id="denomination-5" value="0" min="0" onfocus="clearInput(this)" onblur="resetIfEmpty(this)" oninput="limitDecimalPlaces(this); calculateTotal()">
+                </div>
+                <div class="input-group">
+                    <label for="denomination-10">10 грн:</label>
+                    <input type="number" id="denomination-10" value="0" min="0" onfocus="clearInput(this)" onblur="resetIfEmpty(this)" oninput="limitDecimalPlaces(this); calculateTotal()">
+                </div>
+            </div>
+
+            <div class="column">
+                <h2>Купюри</h2>
+                <div class="input-group">
+                    <label for="denomination-20">20 грн:</label>
+                    <input type="number" id="denomination-20" value="0" min="0" onfocus="clearInput(this)" onblur="resetIfEmpty(this)" oninput="limitDecimalPlaces(this); calculateTotal()">
+                </div>
+                <div class="input-group">
+                    <label for="denomination-50">50 грн:</label>
+                    <input type="number" id="denomination-50" value="0" min="0" onfocus="clearInput(this)" onblur="resetIfEmpty(this)" oninput="limitDecimalPlaces(this); calculateTotal()">
+                </div>
+                <div class="input-group">
+                    <label for="denomination-100">100 грн:</label>
+                    <input type="number" id="denomination-100" value="0" min="0" onfocus="clearInput(this)" onblur="resetIfEmpty(this)" oninput="limitDecimalPlaces(this); calculateTotal()">
+                </div>
+                <div class="input-group">
+                    <label for="denomination-200">200 грн:</label>
+                    <input type="number" id="denomination-200" value="0" min="0" onfocus="clearInput(this)" onblur="resetIfEmpty(this)" oninput="limitDecimalPlaces(this); calculateTotal()">
+                </div>
+                <div class="input-group">
+                    <label for="denomination-500">500 грн:</label>
+                    <input type="number" id="denomination-500" value="0" min="0" onfocus="clearInput(this)" onblur="resetIfEmpty(this)" oninput="limitDecimalPlaces(this); calculateTotal()">
+                </div>
+                <div class="input-group">
+                    <label for="denomination-1000">1000 грн:</label>
+                    <input type="number" id="denomination-1000" value="0" min="0" onfocus="clearInput(this)" onblur="resetIfEmpty(this)" oninput="limitDecimalPlaces(this); calculateTotal()">
+                </div>
+            </div>
+        </div>
+
+        <!-- Добавление карточек -->
+        <div class="section">
+            <div class="column">
+                <h2>Картки</h2>
+                <div id="card-container">
+                    <div class="input-group">
+                        <input type="text" id="cardName1" value="Карта 1" oninput="updateCardName(this)">
+                        <input type="number" id="card1" value="0" min="0" onfocus="clearInput(this)" onblur="resetIfEmpty(this)" oninput="limitDecimalPlaces(this); calculateTotal()">
+                    </div>
+                </div>
+                <button id="addCardButton">Додати карту</button>
+            </div>
+        </div>
+
+        <div class="results">
+            <div id="cashAmount" class="result neutral">Сума готівки: 0</div>
+            <div id="cardAmount" class="result neutral">Сума на картках: 0</div>
+            <div id="calculatedAmount" class="result neutral">Загальна сума: 0</div>
+        </div>
+    </div>
+</div>
+<script src="scripts.js"></script>
+</body>
+</html>
