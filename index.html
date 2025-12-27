@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мої HTML/CSS/JS проекти</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            margin: 0;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 50px;
+            font-size: 2.5rem;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: #333;
+            font-size: 1.3rem;
+            font-weight: 500;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .project-card.disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .project-card.disabled:hover {
+            transform: none;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .project-card span {
+            display: block;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <h1>Мої HTML/CSS/JS проекти</h1>
+
+    <div class="gallery">
+        <!-- 1. 100 ready (виключено) -->
+        <div class="project-card disabled">
+            100 ready
+            <span>скоро...</span>
+        </div>
+
+        <!-- 2. avatarORlogoCIRCLE -->
+        <a href="avatarORlogoCIRCLE/index.html" class="project-card">
+            avatarORlogoCIRCLE
+        </a>
+
+        <!-- 3. bank card -->
+        <a href="bank card/index.html" class="project-card">
+            bank card
+        </a>
+
+        <!-- 4. block_game -->
+        <a href="block_game/index.html" class="project-card">
+            block_game
+        </a>
+
+        <!-- 5. dashboard_exp -->
+        <a href="dashboard_exp/index.html" class="project-card">
+            dashboard_exp
+        </a>
+
+        <!-- 6. gradient fitches -->
+        <a href="gradient fitches/index.html" class="project-card">
+            gradient fitches
+        </a>
+
+        <!-- 7. Line of progress -->
+        <a href="Line of progress/index.html" class="project-card">
+            Line of progress
+        </a>
+
+        <!-- 8. Matrix Background -->
+        <a href="Matrix Background/index.html" class="project-card">
+            Matrix Background
+        </a>
+
+        <!-- 9. modifiedflowerdesign -->
+        <a href="modifiedflowerdesign/index.html" class="project-card">
+            modifiedflowerdesign
+        </a>
+
+        <!-- 10. modified_cursor(крапка) -->
+        <a href="modified_cursor(крапка)/index.html" class="project-card">
+            modified_cursor(крапка)
+        </a>
+
+        <!-- 11. money_calculator -->
+        <a href="money_calculator/index.html" class="project-card">
+            money_calculator
+        </a>
+
+        <!-- 12. написання-слова_живими_літерами -->
+        <a href="написання-слова_живими_літерами/index.html" class="project-card">
+            написання-слова_живими_літерами
+        </a>
+
+        <!-- 13. написання_слова_лазером -->
+        <a href="написання_слова_лазером/index.html" class="project-card">
+            написання_слова_лазером
+        </a>
+
+        <!-- 14. Плавна_поява_блоків -->
+        <a href="Плавна_поява_блоків/index.html" class="project-card">
+            Плавна_поява_блоків
+        </a>
+
+        <!-- 15. показ_фото_гортання -->
+        <a href="показ_фото_гортання/index.html" class="project-card">
+            показ_фото_гортання
+        </a>
+
+        <!-- 16. привітання+побажання (виключено) -->
+        <div class="project-card disabled">
+            привітання+побажання
+            <span>скоро...</span>
+        </div>
+    </div>
+</body>
+</html>
