@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Привітання та побажання</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ffeef8 0%, #f8d7e8 100%);
+            margin: 0;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        h1 {
+            text-align: center;
+            color: #d63384;
+            margin-bottom: 20px;
+            font-size: 2.8rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+
+        p.subtitle {
+            text-align: center;
+            color: #777;
+            font-size: 1.2rem;
+            margin-bottom: 50px;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 16px;
+            padding: 35px 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(214, 51, 132, 0.15);
+            transition: all 0.4s ease;
+            text-decoration: none;
+            color: #d63384;
+            font-size: 1.5rem;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 5px;
+            background: linear-gradient(90deg, #ff6b6b, #d63384, #ff9ff3);
+        }
+
+        .project-card:hover {
+            transform: translateY(-12px) scale(1.03);
+            box-shadow: 0 20px 40px rgba(214, 51, 132, 0.25);
+        }
+
+        .project-card span {
+            display: block;
+            margin-top: 12px;
+            font-size: 1rem;
+            color: #999;
+            font-weight: normal;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 60px;
+            font-size: 1.1rem;
+        }
+
+        .back-link a {
+            color: #d63384;
+            text-decoration: none;
+            border: 2px solid #d63384;
+            padding: 10px 25px;
+            border-radius: 30px;
+            transition: all 0.3s;
+        }
+
+        .back-link a:hover {
+            background: #d63384;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Привітання та побажання</h1>
+    <p class="subtitle">Обери привітання, яке хочеш переглянути</p>
+
+    <div class="gallery">
+        <!-- 8ofmarch -->
+        <a href="8ofmarch/index.html" class="project-card">
+            8 березня
+            <span>Класичне привітання до 8 березня</span>
+        </a>
+
+        <!-- 8ofmarch.v2 -->
+        <a href="8ofmarch.v2/index.html" class="project-card">
+            8 березня (версія 2)
+            <span>Оновлена версія привітання</span>
+        </a>
+
+        <!-- StValentinesDay-Nastya -->
+        <a href="StValentinesDay-Nastya/index.html" class="project-card">
+            День Святого Валентина — Настя
+            <span>Персональне привітання для Насті</span>
+        </a>
+
+        <!-- vishes_to_be_healthy -->
+        <a href="vishes_to_be_healthy/index.html" class="project-card">
+            Побажання здоров'я
+            <span>Теплі слова про здоров'я та щастя</span>
+        </a>
+    </div>
+
+    <div class="back-link">
+        <a href="../index.html">← Повернутися до всіх проектів</a>
+    </div>
+</body>
+</html>
