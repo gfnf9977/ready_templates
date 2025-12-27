@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>С 8 марта</title>
+    <style>
+        :root {
+            --primary: #ff6b6b;
+            --secondary: #4ecdc4;
+            --accent: #45b7d1;
+        }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .scene {
+            perspective: 1000px;
+        }
+        .card {
+            position: relative;
+            width: 400px;
+            height: 500px;
+            transform-style: preserve-3d;
+            transition: transform 1s;
+            cursor: crosshair;
+            animation: circularRotate 5s linear infinite;
+        }
+        @keyframes circularRotate {
+            0%, 100% {
+                transform: rotateX(0deg) rotateY(0deg);
+            }
+            25% {
+                transform: rotateX(30deg) rotateY(30deg);
+            }
+            50% {
+                transform: rotateX(0deg) rotateY(60deg);
+            }
+            75% {
+                transform: rotateX(-30deg) rotateY(30deg);
+            }
+        }
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
+        }
+        .card-front, .card-back {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            flex-direction: column;
+        }
+        .card-front {
+            color: white;
+        }
+        .card-back {
+            transform: rotateY(180deg);
+            color: white;
+            background: rgba(255, 255, 255, 0.05) !important; /* Покращена прозорість */
+        }
+        h1 {
+            font-size: 2.5em;
+            text-shadow: 0 0 20px var(--accent);
+        }
+        .card-back h1 {
+            font-size: 1.5em;
+        }
+        .card-back p {
+            font-size: 1em;
+        }
+        .signature {
+            margin-top: 20px;
+            font-size: 1.2em;
+            text-align: right;
+            width: 100%;
+        }
+        .signature-line {
+            border-bottom: 1px solid white;
+            display: inline-block;
+            width: 150px;
+            margin-left: auto;
+            margin-top: 7.5em;
+        }
+        .button {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .toggle-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .flip-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .heart {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: #ff1493;
+            transform: rotate(-45deg);
+            animation: float-heart 2s linear forwards;
+            pointer-events: none;
+        }
+        .heart::before,
+        .heart::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: #ff1493;
+            border-radius: 50%;
+        }
+        .heart::before { top: -15px; left: 0; }
+        .heart::after { top: 0; left: 15px; }
+        @keyframes float-heart {
+            0% {
+                transform: translateY(0) rotate(-45deg) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(270deg) scale(0.3);
+                opacity: 0;
+            }
+        }
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--primary-color);
+            animation: confettiFall 5s linear infinite;
+        }
+        @keyframes confettiFall {
+            0% { transform: translateY(-100vh) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(360deg); }
+        }
+        #drawingCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+<div class="scene">
+    <div class="card" id="card">
+        <canvas id="drawingCanvas"></canvas>
+        <div class="card-face card-front">
+            <h1>С 8 марта, подруга!</h1>
+            <p>Тебе всего максимально позитивного, чтобы грустить не приходилось. Чтоб все попадосики обходили тебя стороной. А еще чтобы обязательно выходило все, что пробуешь делать. Чтобы все так, как надо получалось и был только интерес от процесса.<br>P.S. И конечно надо, чтоб все было всегда отлично с танцами, а особенно в ближайшее время!</p>
+        </div>
+        <div class="card-face card-back">
+            <h1>Тут, по слухам, ссылочка должна долететь таки очень классной девченке, которая  будет оставаться такой-же крутой и на позитиве!</h1>
+            <p>Ну а так-же, эта открытка специально заряжена на получение заряда настоящего жіночого щастя, персонально для Анастейшн Ворожбит.</p>
+            <div class="signature">Для получения надо поставить подпись ниже.</div>
+            <div class="signature-line">_______</div>
+        </div>
+    </div>
+</div>
+<button class="toggle-button" id="toggleButton">Вимкнути пензель</button>
+<button class="flip-button" id="flipButton">Перегорнути</button>
+<script>
+    const card = document.getElementById('card');
+    const canvas = document.getElementById('drawingCanvas');
+    const ctx = canvas.getContext('2d');
+    const flipButton = document.getElementById('flipButton');
+    const toggleButton = document.getElementById('toggleButton');
+    canvas.width = 400;
+    canvas.height = 500;
+    let isDrawingEnabled = true;
+    let isBackSideActive = false;
+
+    function drawCircle(x, y) {
+        if (!isDrawingEnabled) return;
+        ctx.beginPath();
+        ctx.arc(x, y, 4, 0, Math.PI * 2); // Збільшений розмір
+        ctx.fillStyle = '#000000'; // Золотий колір
+        ctx.strokeStyle = '#000000'; // Білий контур
+        ctx.lineWidth = 1.5;
+        ctx.shadowColor = '#000000';
+        ctx.shadowBlur = 10;
+        ctx.fill();
+        ctx.stroke();
+        ctx.shadowBlur = 0;
+    }
+
+    flipButton.addEventListener('click', () => {
+        if (isBackSideActive) {
+            card.style.transform = 'rotateY(0deg)';
+            isBackSideActive = false;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        } else {
+            card.style.transform = 'rotateY(180deg)';
+            isBackSideActive = true;
+            createHearts();
+            createConfetti();
+        }
+    });
+
+    card.addEventListener('mousemove', (e) => {
+        if (!isBackSideActive || !isDrawingEnabled || e.target.closest('.button')) return;
+        const rect = canvas.getBoundingClientRect();
+        const x = canvas.width - (e.clientX - rect.left);
+        const y = e.clientY - rect.top;
+        drawCircle(x, y);
+    });
+
+    toggleButton.addEventListener('click', () => {
+        isDrawingEnabled = !isDrawingEnabled;
+        toggleButton.textContent = isDrawingEnabled ? 'Вимкнути пензель' : 'Увімкнути пензель';
+        if (isBackSideActive) {
+            card.style.transform = 'rotateY(180deg)';
+        } else {
+            card.style.transform = 'rotateY(0deg)';
+        }
+    });
+
+    let active = false;
+    let startX, startY;
+    card.addEventListener('mousedown', (e) => {
+        active = true;
+        startX = e.clientX - card.offsetLeft;
+        startY = e.clientY - card.offsetTop;
+        card.style.transition = 'none';
+    });
+
+    document.addEventListener('mousemove', (e) => {
+        if (!active) return;
+        e.preventDefault();
+        const x = e.clientX - startX;
+        const y = e.clientY - startY;
+        card.style.transform = `translate(${x}px, ${y}px) rotateY(${(e.clientX - startX)/15}deg) rotateX(${(e.clientY - startY)/5}deg)`;
+    });
+
+    document.addEventListener('mouseup', () => {
+        active = false;
+        card.style.transition = 'transform 1s';
+        if (isBackSideActive) {
+            card.style.transform = 'translate(0, 0) rotateY(180deg) rotateX(0deg)';
+        } else {
+            card.style.transform = 'translate(0, 0) rotateY(0deg) rotateX(0deg)';
+        }
+    });
+
+    function createHearts() {
+        for (let i = 0; i < 50; i++) {
+            let heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.innerHTML = "❤️";
+            card.appendChild(heart);
+            heart.style.left = Math.random() * 100 + "%";
+            heart.style.top = "100%";
+            heart.style.animationDuration = Math.random() * 3 + 2 + "s";
+            setTimeout(() => heart.remove(), 5000);
+        }
+    }
+
+    function createConfetti() {
+        for (let i = 0; i < 100; i++) {
+            let confetti = document.createElement("div");
+            confetti.classList.add("confetti");
+            confetti.style.left = Math.random() * 100 + "%";
+            confetti.style.top = Math.random() * 100 + "%";
+            confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+            card.appendChild(confetti);
+            setTimeout(() => confetti.remove(), 5000);
+        }
+    }
+
+    setTimeout(() => {
+        card.style.animation = 'none';
+    }, 10000);
+</script>
+</body>
+</html>

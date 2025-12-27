@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Вітання з 8 березня</title>
+    <style>
+        :root {
+            --primary: #ff6b6b;
+            --secondary: #4ecdc4;
+            --accent: #45b7d1;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .scene {
+            perspective: 1000px;
+        }
+
+        .card {
+            position: relative;
+            width: 400px;
+            height: 500px;
+            transform-style: preserve-3d;
+            transition: transform 1s;
+            cursor: crosshair;
+            animation: circularRotate 5s linear infinite;
+        }
+
+        @keyframes circularRotate {
+            0%, 100% {
+                transform: rotateX(0deg) rotateY(0deg);
+            }
+            25% {
+                transform: rotateX(30deg) rotateY(30deg);
+            }
+            50% {
+                transform: rotateX(0deg) rotateY(60deg);
+            }
+            75% {
+                transform: rotateX(-30deg) rotateY(30deg);
+            }
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-front, .card-back {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            flex-direction: column;
+        }
+
+        .card-front {
+            color: white;
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+            color: white;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            text-shadow: 0 0 20px var(--accent);
+        }
+
+        .button {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .toggle-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .flip-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .heart {
+            position: fixed;
+            width: 30px;
+            height: 30px;
+            background: #ff1493;
+            transform: rotate(-45deg);
+            animation: float-heart 2s linear forwards;
+            pointer-events: none;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: #ff1493;
+            border-radius: 50%;
+        }
+
+        .heart::before { top: -15px; left: 0; }
+        .heart::after { top: 0; left: 15px; }
+
+        @keyframes float-heart {
+            0% {
+                transform: translateY(0) rotate(-45deg) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(270deg) scale(0.3);
+                opacity: 0;
+            }
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--primary-color);
+            animation: confettiFall 5s linear infinite;
+        }
+
+        @keyframes confettiFall {
+            0% { transform: translateY(-100vh) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(360deg); }
+        }
+
+        #drawingCanvas, #particleCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+<div class="scene">
+    <div class="card" id="card">
+        <canvas id="drawingCanvas"></canvas>
+        <div class="card-face card-front">
+            <h1>З 8 березня!</h1>
+            <p>Вітаємо зі святом,<br>щастя, любові і вічної весни!</p>
+        </div>
+        <div class="card-face card-back">
+            <h1>Все найкраще!</h1>
+            <p>Тут можна розмістити додатковий текст або контент.</p>
+        </div>
+    </div>
+</div>
+<button class="toggle-button" id="toggleButton">Вимкнути пензель</button>
+<button class="flip-button" id="flipButton">Перегорнути</button>
+
+<canvas id="particleCanvas"></canvas>
+
+<script>
+    const card = document.getElementById('card');
+    const drawingCanvas = document.getElementById('drawingCanvas');
+    const drawingCtx = drawingCanvas.getContext('2d');
+    const flipButton = document.getElementById('flipButton');
+    const toggleButton = document.getElementById('toggleButton');
+    const particleCanvas = document.getElementById('particleCanvas');
+    const particleCtx = particleCanvas.getContext('2d');
+
+    drawingCanvas.width = 400;
+    drawingCanvas.height = 500;
+
+    let isDrawingEnabled = true;
+    let isBackSideActive = false;
+
+    function drawCircle(x, y) {
+        if (!isDrawingEnabled) return;
+        drawingCtx.beginPath();
+        drawingCtx.arc(x, y, 5, 0, Math.PI * 2); // Increased pen thickness
+        drawingCtx.fillStyle = '#FFFFFF'; // More vibrant color
+        drawingCtx.fill();
+    }
+
+    flipButton.addEventListener('click', () => {
+        if (isBackSideActive) {
+            card.style.transform = 'rotateY(0deg)';
+            isBackSideActive = false;
+            drawingCtx.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height); // Clear the canvas when flipping back
+        } else {
+            card.style.transform = 'rotateY(180deg)';
+            isBackSideActive = true;
+            createHearts();
+            createConfetti();
+        }
+    });
+
+    card.addEventListener('mousemove', (e) => {
+        if (!isBackSideActive || !isDrawingEnabled || e.target.closest('.button')) return;
+
+        const rect = drawingCanvas.getBoundingClientRect();
+        const x = drawingCanvas.width - (e.clientX - rect.left); // Mirror the X coordinate
+        const y = e.clientY - rect.top;
+
+        drawCircle(x, y);
+    });
+
+    toggleButton.addEventListener('click', () => {
+        isDrawingEnabled = !isDrawingEnabled;
+        toggleButton.textContent = isDrawingEnabled ? 'Вимкнути пензель' : 'Увімкнути пензель';
+        if (isBackSideActive) {
+            card.style.transform = 'rotateY(180deg)';
+        } else {
+            card.style.transform = 'rotateY(0deg)';
+        }
+    });
+
+    let active = false;
+    let startX, startY;
+
+    card.addEventListener('mousedown', (e) => {
+        active = true;
+        startX = e.clientX - card.offsetLeft;
+        startY = e.clientY - card.offsetTop;
+        card.style.transition = 'none';
+    });
+
+    document.addEventListener('mousemove', (e) => {
+        if (!active) return;
+        e.preventDefault();
+        const x = e.clientX - startX;
+        const y = e.clientY - startY;
+        card.style.transform = `translate(${x}px, ${y}px) rotateY(${(e.clientX - startX)/15}deg) rotateX(${(e.clientY - startY)/5}deg)`;
+    });
+
+    document.addEventListener('mouseup', () => {
+        active = false;
+        card.style.transition = 'transform 1s';
+        if (isBackSideActive) {
+            card.style.transform = 'translate(0, 0) rotateY(180deg) rotateX(0deg)';
+        } else {
+            card.style.transform = 'translate(0, 0) rotateY(0deg) rotateX(0deg)';
+        }
+    });
+
+    function createHearts() {
+        for (let i = 0; i < 50; i++) {
+            let heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.innerHTML = "❤️";
+            document.body.appendChild(heart);
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.top = "100%";
+            heart.style.animationDuration = Math.random() * 3 + 2 + "s";
+            setTimeout(() => heart.remove(), 5000);
+        }
+    }
+
+    function createConfetti() {
+        for (let i = 0; i < 100; i++) {
+            let confetti = document.createElement("div");
+            confetti.classList.add("confetti");
+            confetti.style.left = Math.random() * 100 + "vw";
+            confetti.style.top = Math.random() * 100 + "vh";
+            confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+            document.body.appendChild(confetti);
+            setTimeout(() => confetti.remove(), 5000);
+        }
+    }
+
+    setTimeout(() => {
+        card.style.animation = 'none';
+    }, 10000);
+
+    // Particle effect setup
+    let particles = [];
+    let hover = false;
+    let animationFrame;
+
+    const settings = {
+        particleCount: 1000,
+        force: 0.15,
+        friction: 0.95,
+        text: 'З 8 Березня!',
+        fontSize: 100,
+        padding: 50
+    };
+
+    function initParticles() {
+        resizeParticles();
+        createParticles();
+        document.addEventListener('click', triggerFormation);
+        document.addEventListener('mousemove', handleMouseMove);
+        window.addEventListener('resize', resizeParticles);
+        animateParticles();
+    }
+
+    function createParticles() {
+        particles = [];
+        for(let i = 0; i < settings.particleCount; i++) {
+            particles.push({
+                x: Math.random() * particleCanvas.width,
+                y: Math.random() * particleCanvas.height,
+                vx: 0,
+                vy: 0,
+                target: {x: 0, y: 0},
+                color: `hsl(${Math.random() * 360}, 70%, 50%)`
+            });
+        }
+    }
+
+    function triggerFormation() {
+        particles.forEach(p => {
+            const rect = card.getBoundingClientRect();
+            const point = {
+                x: Math.random() * rect.width + rect.left,
+                y: Math.random() * rect.height + rect.top
+            };
+            p.target = {
+                x: point.x + settings.padding,
+                y: point.y + settings.padding
+            };
+        });
+    }
+
+    function handleMouseMove(e) {
+        hover = true;
+        const rect = particleCanvas.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+
+        particles.forEach(p => {
+            const dx = p.x - mouseX;
+            const dy = p.y - mouseY;
+            const dist = Math.sqrt(dx*dx + dy*dy);
+
+            if(dist < 100) {
+                p.vx += dx * settings.force / dist;
+                p.vy += dy * settings.force / dist;
+            }
+        });
+    }
+
+    function animateParticles() {
+        particleCtx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
+
+        particles.forEach(p => {
+            p.vx *= settings.friction;
+            p.vy *= settings.friction;
+
+            p.x += p.vx;
+            p.y += p.vy;
+
+            particleCtx.fillStyle = p.color;
+            particleCtx.beginPath();
+            particleCtx.arc(p.x, p.y, 5, 0, Math.PI*2);
+            particleCtx.fill();
+            particleCtx.strokeStyle = 'white';
+            particleCtx.stroke();
+        });
+
+        animationFrame = requestAnimationFrame(animateParticles);
+    }
+
+    function resizeParticles() {
+        particleCanvas.width = window.innerWidth;
+        particleCanvas.height = window.innerHeight;
+    }
+
+    initParticles();
+</script>
+</body>
+</html>

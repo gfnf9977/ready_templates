@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Швидкого Одужання!</title>
+  <style>
+    :root {
+      --primary-color: #ff4081;
+      --secondary-color: #ff7eb3;
+      --background-gradient: linear-gradient(135deg, #ff758c, #ff7eb3);
+      --card-width: 90%;
+      --card-height: 70vh;
+      --transition-duration: 0.8s;
+      --font-family: 'Courier New', Courier, monospace;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: var(--background-gradient);
+      font-family: var(--font-family);
+      overflow: hidden;
+      margin: 0;
+    }
+
+    .card-container {
+      position: relative;
+      width: var(--card-width);
+      height: var(--card-height);
+      perspective: 1000px;
+      cursor: pointer;
+      transition: transform var(--transition-duration) ease-in-out;
+    }
+
+    .card-container:hover {
+      transform: scale(1.1);
+    }
+
+    .card {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      transform-style: preserve-3d;
+      transition: transform var(--transition-duration) ease-in-out;
+    }
+
+    .card.open {
+      transform: rotateY(180deg);
+    }
+
+    .card .front, .card .back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 20px;
+      backface-visibility: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+      border: 2px solid #fff;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .card .front {
+      background: linear-gradient(135deg, #ffebf0, #ffffff);
+      color: var(--primary-color);
+      font-size: 24px;
+      font-weight: bold;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    .card .back {
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      color: white;
+      transform: rotateY(180deg);
+    }
+
+    .message {
+      font-size: 20px;
+      margin-top: 20px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1s, transform 1s;
+      overflow: hidden;
+    }
+
+    .message.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .fireworks {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: var(--primary-color);
+      animation: confettiFall 5s linear infinite;
+    }
+
+    @keyframes confettiFall {
+      0% { transform: translateY(-100vh) rotate(0deg); }
+      100% { transform: translateY(100vh) rotate(360deg); }
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 24px;
+      color: red;
+      animation: floatUp 3s linear infinite;
+    }
+
+    @keyframes floatUp {
+      from { transform: translateY(0); opacity: 1; }
+      to { transform: translateY(-200px); opacity: 0; }
+    }
+
+    .glow {
+      animation: glow 2s infinite alternate;
+    }
+
+    @keyframes glow {
+      from { box-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--primary-color), 0 0 30px var(--primary-color); }
+      to { box-shadow: 0 0 20px var(--primary-color), 0 0 30px var(--primary-color), 0 0 40px var(--primary-color); }
+    }
+
+    .sparkle {
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      background: white;
+      border-radius: 50%;
+      animation: sparkleAnimation 3s linear infinite;
+    }
+
+    @keyframes sparkleAnimation {
+      0% { transform: scale(1) translateY(0); opacity: 1; }
+      100% { transform: scale(0.5) translateY(-100px); opacity: 0; }
+    }
+
+    @media (max-width: 768px) {
+      .card .front, .card .back {
+        font-size: 18px;
+      }
+
+      .message {
+        font-size: 16px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .card .front, .card .back {
+        font-size: 16px;
+      }
+
+      .message {
+        font-size: 14px;
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="card-container">
+  <div class="card" onclick="openCard()">
+    <div class="front glow">🌟 Настя, а жмякни-ка сюда 🌟</div>
+    <div class="back">
+      <h2>💖 Швидшого Одужання! 💖</h2>
+      <p class="message">Быстрее тебе набраться сил, чтоб сумлінно становиться very классным юристом і вернутися пошвидше на тренування. Така настояща сильна львиця точно зможе перебороти оце такий противний попадос😊</p>
+    </div>
+  </div>
+</div>
+<div class="fireworks" id="fireworks"></div>
+
+<script>
+  function openCard() {
+    let card = document.querySelector(".card");
+    let message = document.querySelector(".message");
+    card.classList.toggle("open");
+
+    setTimeout(() => {
+      message.classList.add("show");
+      startFireworks();
+      createHearts();
+      createConfetti();
+      createSparkles();
+    }, 1000);
+  }
+
+  function startFireworks() {
+    let fireworks = document.getElementById("fireworks");
+    for (let i = 0; i < 20; i++) {
+      let spark = document.createElement("div");
+      spark.style.position = "absolute";
+      spark.style.left = Math.random() * 100 + "vw";
+      spark.style.top = Math.random() * 100 + "vh";
+      spark.style.width = "5px";
+      spark.style.height = "5px";
+      spark.style.background = "#fff";
+      spark.style.borderRadius = "50%";
+      spark.style.animation = `explode ${Math.random() * 2 + 1}s ease-out forwards`;
+      fireworks.appendChild(spark);
+
+      setTimeout(() => {
+        spark.remove();
+      }, (Math.random() * 2 + 1) * 1000);
+    }
+  }
+
+  function createHearts() {
+    for (let i = 0; i < 50; i++) {
+      let heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerHTML = "❤️";
+      document.body.appendChild(heart);
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.top = "100%";
+      heart.style.animationDuration = Math.random() * 3 + 2 + "s";
+
+      setTimeout(() => {
+        heart.remove();
+      }, 5000);
+    }
+  }
+
+  function createConfetti() {
+    for (let i = 0; i < 100; i++) {
+      let confetti = document.createElement("div");
+      confetti.classList.add("confetti");
+      confetti.style.left = Math.random() * 100 + "vw";
+      confetti.style.top = Math.random() * 100 + "vh";
+      confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+      document.body.appendChild(confetti);
+
+      setTimeout(() => {
+        confetti.remove();
+      }, 5000);
+    }
+  }
+
+  function createSparkles() {
+    for (let i = 0; i < 30; i++) {
+      let sparkle = document.createElement("div");
+      sparkle.classList.add("sparkle");
+      sparkle.style.left = Math.random() * 100 + "vw";
+      sparkle.style.top = Math.random() * 100 + "vh";
+      document.body.appendChild(sparkle);
+
+      setTimeout(() => {
+        sparkle.remove();
+      }, 3000);
+    }
+  }
+</script>
+</body>
+</html>
