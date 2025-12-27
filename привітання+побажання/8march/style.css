@@ -1,0 +1,15 @@
+body {
+  margin: 0;
+}
+canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('depositphotos_76222447-stock-photo-beautiful-white-peonies.jpg'); /* Замените на название вашей фотографии */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
