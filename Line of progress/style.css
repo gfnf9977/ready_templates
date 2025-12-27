@@ -1,0 +1,49 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+}
+
+#deadline {
+    width: 581px;
+    max-width: 100%;
+    height: 158px;
+    position: relative;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 20px;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.progress {
+    height: 100%;
+    background-color: #76c7c0;
+    width: 0;
+    transition: width 0.5s ease;
+}
+
+#man-image {
+    position: absolute;
+    bottom: 40px; /* Розміщуємо картинку трохи вище над лінією прогресу */
+    left: 0;
+    width: 50px;
+    height: 50px;
+    transition: left 0.5s ease;
+}

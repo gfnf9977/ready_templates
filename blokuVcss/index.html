@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сучасний Дизайн</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            height: 300vh; /* Більша висота для скролінгу */
+            padding: 0;
+            margin: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, #6a82fb, #fc5c7d);
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 60px;
+        }
+
+        .block {
+            background-color: #fff;
+            border-radius: 15px;
+            padding: 40px;
+            margin: 20px;
+            width: 30%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            opacity: 0; /* Початкова прозорість */
+            transform: translateY(100px); /* Початкове зсування вниз */
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+
+        .block.show {
+            opacity: 1; /* Блок з'являється */
+            transform: translateY(0); /* Повертається на місце */
+        }
+
+        .block h2 {
+            font-size: 2rem;
+            color: #6a82fb;
+            margin-bottom: 20px;
+        }
+
+        .block p {
+            font-size: 1.1rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .content {
+            height: 250vh; /* Для більшої висоти */
+            background-color: #f1f1f1;
+            padding: 50px 20px;
+            text-align: center;
+            color: #444;
+        }
+
+        .content h2 {
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+        }
+
+        .content p {
+            font-size: 1.2rem;
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* Кнопка */
+        .btn {
+            display: inline-block;
+            background-color: #fc5c7d;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #6a82fb;
+            transform: translateY(-5px);
+        }
+
+        /* Адаптивність */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .block {
+                width: 80%;
+            }
+
+            header h1 {
+                font-size: 2.5rem;
+            }
+
+            .content h2 {
+                font-size: 1.8rem;
+            }
+
+            .content p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Сучасний Дизайн для Сторінки</h1>
+</header>
+
+<div class="content">
+    <h2>Інтерактивний контент</h2>
+    <p>Цей контент додає більше елементів для прокручування, що створює ефект плавної появи. Додано багато анімацій для підвищення вражень від перегляду. Прокручуйте, щоб побачити чудовий дизайн!</p>
+    <a href="#" class="btn">Дізнатися більше</a>
+</div>
+
+<div class="container">
+    <div class="block">
+        <h2>Блок 1</h2>
+        <p>Цей блок виглядає стильно та сучасно завдяки кольоровим градієнтам і ніжним тіням. Він буде з’являтися з плавним ефектом, коли ви прокручуєте.</p>
+    </div>
+    <div class="block">
+        <h2>Блок 2</h2>
+        <p>Цей блок продовжує стиль сучасного дизайну з використанням тіней і плавних переходів для максимально комфортного перегляду контенту.</p>
+    </div>
+    <div class="block">
+        <h2>Блок 3</h2>
+        <p>Третій блок додано для зручності. Використано великі заголовки і ніжні тіні для створення об’ємного вигляду.</p>
+    </div>
+    <div class="block">
+        <h2>Блок 4</h2>
+        <p>Цей блок виглядає елегантно з використанням шрифтів та кольорів. Також має плавну анімацію для появи при прокрутці сторінки.</p>
+    </div>
+    <div class="block">
+        <h2>Блок 5</h2>
+        <p>Цей блок завершує серію стильних елементів, що підходять для сучасних веб-сторінок з елегантними анімаціями та великими шрифтами.</p>
+    </div>
+    <div class="block">
+        <h2>Блок 6</h2>
+        <p>Це останній блок. Завдяки красивому кольоровому переходу та анімаціям він виглядає естетично і сучасно.</p>
+    </div>
+</div>
+
+<footer>
+    <p>© 2025 Сучасний дизайн сторінки</p>
+</footer>
+
+<script>
+    // Функція для перевірки, чи блок в зоні видимості
+    function isInView(element) {
+        const rect = element.getBoundingClientRect();
+        return rect.top >= 0 && rect.bottom <= window.innerHeight;
+    }
+
+    // Слухач подій для скролу
+    window.addEventListener('scroll', function() {
+        const blocks = document.querySelectorAll('.block');
+        blocks.forEach(block => {
+            if (isInView(block)) {
+                block.classList.add('show'); // Додаємо клас для плавної появи
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

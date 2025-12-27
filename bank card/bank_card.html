@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форма введення даних картки</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .card-form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card {
+            background: linear-gradient(135deg, #007bff, #004080);
+            border-radius: 15px;
+            padding: 20px;
+            width: 350px;
+            height: 220px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            color: white;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .input-group label {
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .input-group input {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            outline: none;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .input-group input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .flex-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .half {
+            width: 48%;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #0056b3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #003d80;
+        }
+    </style>
+</head>
+<body>
+    <div class="card-form-container">
+        <div class="card">
+            <form class="card-form">
+                <div class="input-group">
+                    <label for="card-number">Номер картки</label>
+                    <input type="text" id="card-number" placeholder="XXXX XXXX XXXX XXXX" maxlength="19" required>
+                </div>
+                <div class="input-group">
+                    <label for="card-name">Ім'я на картці</label>
+                    <input type="text" id="card-name" placeholder="Ім'я Прізвище" required>
+                </div>
+                <div class="flex-row">
+                    <div class="input-group half">
+                        <label for="expiry-date">Термін дії</label>
+                        <input type="text" id="expiry-date" placeholder="MM/РР" maxlength="5" required>
+                    </div>
+                    <div class="input-group half">
+                        <label for="cvv">CVV</label>
+                        <input type="text" id="cvv" placeholder="XXX" maxlength="3" required>
+                    </div>
+                </div>
+                <button type="submit">Підтвердити</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('card-number').addEventListener('input', function (e) {
+            let value = e.target.value.replace(/\D/g, ''); 
+            let formatted = '';
+            for (let i = 0; i < value.length; i++) {
+                if (i > 0 && i % 4 === 0) formatted += ' ';
+                formatted += value[i];
+            }
+            e.target.value = formatted.slice(0, 19);
+        });
+
+        document.getElementById('card-name').addEventListener('input', function (e) {
+            e.target.value = e.target.value.replace(/[^а-щьюяїієґА-ЩЬЮЯІЇЄҐa-zA-Z\s-]/g, '');
+        });
+
+        document.getElementById('expiry-date').addEventListener('input', function (e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length >= 2) {
+                value = value.slice(0, 2) + '/' + value.slice(2, 4);
+            }
+            e.target.value = value.slice(0, 5);
+        });
+
+        document.getElementById('cvv').addEventListener('input', function (e) {
+            e.target.value = e.target.value.replace(/\D/g, '').slice(0, 3);
+        });
+    </script>
+</body>
+</html>

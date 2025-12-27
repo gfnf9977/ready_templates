@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrix Background</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<canvas></canvas>
+<script>
+    let canvas = document.querySelector('canvas'),
+        ctx = canvas.getContext('2d'),
+        letters = '01',
+        height = canvas.height = window.innerHeight,
+        width = canvas.width = window.innerWidth,
+        font_size = 10,
+        columns = width / font_size,
+        drops = [];
+
+    for (let i = 0; i < columns; i++) {
+        drops[i] = 1;
+    }
+
+    function draw() {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        ctx.fillRect(0, 0, width, height);
+
+        ctx.fillStyle = '#0F0'; // Green text
+        ctx.font = font_size + 'px arial';
+
+        for (let i = 0; i < drops.length; i++) {
+            let text = letters[Math.floor(Math.random() * letters.length)];
+            ctx.fillText(text, i * font_size, drops[i] * font_size);
+
+            if (drops[i] * font_size > height || Math.random() > 0.975) {
+                drops[i] = 0;
+            }
+
+            drops[i]++;
+        }
+    }
+
+    setInterval(draw, 33);
+</script>
+</body>
+</html>
